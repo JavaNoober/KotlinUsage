@@ -1,9 +1,15 @@
 package com.noober.kotlinusage
 
 import android.app.Application
+import android.view.View
 import org.junit.Test
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
+
+class LazyMember{
+    fun doSomethings(){}
+    fun doSomethings2(){}
+}
 
 class KotlinTest {
 
@@ -25,4 +31,57 @@ class KotlinTest {
         }
     }
 
+    fun afterMeasureTest(view: View){
+        view.afterMeasure {
+            setOnClickListener {
+
+            }
+        }
+
+        view.afterMeasure2 {
+//            thi
+        }
+    }
+
+
+    val member by lazy { LazyMember() }
+
+    fun lazyMemberTest(){
+        member.doSomethings()
+    }
+
+    fun lambdaFun(boolean: Boolean, block: (Int) -> Unit){
+
+    }
+
+    fun lambdaFunTest(){
+        lambdaFun(true, block = {
+
+        })
+
+        lambdaFun(true){
+
+        }
+    }
 }
+
+
+fun <T : View> T.afterMeasure(f: T.() -> Unit) {
+}
+
+fun <T : View> T.afterMeasure2(f: () -> Unit) {
+
+}
+
+
+
+
+//fun <T> Observable<T>.setThread(): Observable<T> {
+//    return subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//}
+//
+//fun <V : View> Activity.bindView(id: Int): Lazy<V> {
+//    return lazy { findViewById<V>(id) }
+//}
+
